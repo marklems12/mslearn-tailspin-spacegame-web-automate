@@ -69,8 +69,7 @@ stages:
   displayName: 'Deploy to the dev environment'
   dependsOn: Build
   jobs:
-   jobs:
-   - job: Provision
+  - job: Provision
     displayName: 'Provision Azure App Service'
     pool:
       vmImage: 'ubuntu-18.04'
@@ -107,7 +106,7 @@ stages:
         ARM_TENANT_ID: $(ARM_TENANT_ID)
         ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
   - deployment: Deploy
-    git add azure-pipelines.ymldependsOn: Provision
+    dependsOn: Provision
     variables:
       WebAppNameDev: $[ dependencies.Provision.outputs['RunTerraform.WebAppNameDev'] ]
     pool:
